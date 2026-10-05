@@ -22,6 +22,16 @@ def main():
     check = "--check" in sys.argv
     for name, events in PRICING.items():
         actor = f"{me}~{name}"
+        current = S.get(f"{API}/acts/{actor}", timeout=60).json()["data"].get("pricingInfos") or []
+        if current:
+            print(name, "já tem preço")
+            if check:
+                return
+            r = put(actor, {"isPublic": True})
+            print(name, "publicado" if r.ok else f"falhou ao publicar: {r.status_code} {r.text[:500]}")
+            if not r.ok:
+                sys.exit(3)
+            continue
         r = put(actor, {"pricingInfos": [{"pricingModel": "PAY_PER_EVENT", "pricingPerEvent": {"actorChargeEvents": events}}]})
         if r.status_code >= 400:
             if "payout" in r.text:
