@@ -1,0 +1,11 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": { "fields": ["title", "company", "city", "stateCode", "workplaceType", "publishedAt", "applicationDeadline", "url"] },
+      "display": { "component": "table", "properties": { "url": { "format": "link" } } }
+    }
+  }
+}

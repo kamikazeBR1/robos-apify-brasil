@@ -1,0 +1,13 @@
+{
+  "actorSpecification": 1,
+  "name": "gupy-jobs-scraper-brazil",
+  "title": "Gupy Jobs Scraper Brazil (vagas de emprego Gupy)",
+  "description": "Extract job openings from Gupy, Brazil's largest recruiting platform: title, company, city/state, remote/hybrid/on-site, publish date, deadline, PcD flag, skills and description. Filter by keyword, state, city, company, workplace type and recency. Fast HTTP-only, no browser.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "categories": ["JOBS", "LEAD_GENERATION"],
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": { "dataset": "./dataset_schema.json" }
+}

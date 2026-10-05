@@ -1,0 +1,52 @@
+{
+  "title": "Gupy Jobs Scraper",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "keywords": {
+      "title": "Keywords / Palavras-chave",
+      "type": "array",
+      "description": "Job titles or terms to search, e.g. 'analista de dados', 'vendedor', 'python'. Leave empty to list all open jobs.",
+      "editor": "stringList",
+      "prefill": ["analista de dados"]
+    },
+    "maxItems": {
+      "title": "Max jobs",
+      "type": "integer",
+      "description": "Maximum number of jobs to return across all keywords.",
+      "default": 100,
+      "minimum": 1
+    },
+    "workplaceTypes": {
+      "title": "Workplace type",
+      "type": "array",
+      "description": "Keep only these workplace types.",
+      "editor": "select",
+      "items": { "type": "string", "enum": ["remote", "hybrid", "on-site"], "enumTitles": ["Remote / Remoto", "Hybrid / Híbrido", "On-site / Presencial"] }
+    },
+    "states": {
+      "title": "States (UF)",
+      "type": "array",
+      "description": "Two-letter state codes, e.g. SP, RJ, MG.",
+      "editor": "stringList"
+    },
+    "cities": {
+      "title": "Cities",
+      "type": "array",
+      "description": "City names, e.g. São Paulo, Curitiba (accents optional).",
+      "editor": "stringList"
+    },
+    "companies": {
+      "title": "Companies",
+      "type": "array",
+      "description": "Keep only jobs whose company name contains one of these terms.",
+      "editor": "stringList"
+    },
+    "postedWithinDays": {
+      "title": "Posted within (days)",
+      "type": "integer",
+      "description": "Keep only jobs published in the last N days. Great for daily scheduled runs.",
+      "minimum": 1
+    }
+  }
+}
