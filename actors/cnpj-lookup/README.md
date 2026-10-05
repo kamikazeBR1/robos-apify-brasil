@@ -62,10 +62,13 @@
 Pay per event: a small start fee plus a fee per **company found**. See the *Pricing* tab.
 
 ## Use cases
-KYC / supplier onboarding, lead enrichment for B2B sales in Brazil, CRM clean-up, compliance monitoring of customers and suppliers (status changes, partner changes).
+KYC and supplier onboarding, due diligence, CRM data clean-up, compliance monitoring of customers and suppliers (status changes, partner changes), B2B market research.
 
-## Data and legality
-Only public data that Receita Federal publishes as open data (dados abertos do CNPJ), obtained through public open-data APIs. No login, no captcha bypassing. Partner names are part of the official public registry; process them according to the LGPD (Lei 13.709/2018) and use them only for legitimate purposes.
+## Data source and legality
+- **Source:** the official CNPJ open dataset published by Receita Federal (*Dados Abertos do CNPJ*, open government data free for any use, including commercial), served by two free open-source public APIs: [BrasilAPI](https://brasilapi.com.br) and [Minha Receita](https://minhareceita.org). Neither publishes terms forbidding commercial use.
+- **No scraping of Receita Federal's website and no captcha solving.** The Actor never touches the Receita's consultation pages.
+- **Polite rate:** at most ~3 requests per second in total, with retries and back-off on errors.
+- **Personal data (LGPD):** partner names and the e-mail/phone of sole proprietors are personal data even though they are public. You are the data controller of what you do with the results: use them only for a legitimate purpose (KYC, due diligence, supplier checks, B2B research) under the LGPD (Lei 13.709/2018). **Do not use this Actor for spam or mass cold e-mail/phone/WhatsApp campaigns.** Turn off *Include partners* if you do not need them.
 
 ---
 
@@ -87,5 +90,8 @@ Only public data that Receita Federal publishes as open data (dados abertos do C
 
 Para monitorar uma carteira de clientes ou fornecedores, ligue **Monitor changes between runs** e crie um agendamento (Schedule) diário ou semanal.
 
-## Dados e LGPD
-Somente dados públicos dos dados abertos do CNPJ, obtidos por APIs públicas. Sem login e sem quebra de captcha. Nomes de sócios fazem parte do cadastro público oficial; trate-os conforme a LGPD e use-os apenas para finalidades legítimas.
+## Fonte, legalidade e LGPD
+- **Fonte:** dados abertos do CNPJ publicados pela Receita Federal (dados abertos governamentais, livres inclusive para uso comercial), servidos pelas APIs públicas e de código aberto [BrasilAPI](https://brasilapi.com.br) e [Minha Receita](https://minhareceita.org), que não proíbem uso comercial.
+- **Não acessa o site da Receita e não quebra captcha.**
+- **Ritmo educado:** no máximo cerca de 3 consultas por segundo no total, com novas tentativas espaçadas em caso de erro.
+- **LGPD:** nome de sócios e e-mail/telefone de empresários individuais são dados pessoais, mesmo sendo públicos. Quem usa o resultado é o controlador: use só para finalidade legítima (cadastro de clientes e fornecedores, due diligence, compliance, pesquisa B2B). **Não use para spam nem disparo em massa de e-mail, telefone ou WhatsApp.** Desligue *Include partners* se não precisar dos sócios.

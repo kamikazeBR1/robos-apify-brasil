@@ -1,0 +1,71 @@
+{
+  "title": "Brazil Public Tenders (PNCP)",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "mode": {
+      "title": "What to search",
+      "type": "string",
+      "description": "'open' = tenders currently receiving proposals (best for sales teams). 'published' = tenders published between the dates below.",
+      "editor": "select",
+      "enum": ["open", "published"],
+      "enumTitles": ["Open for proposals / Recebendo propostas", "Published in a date range / Publicadas no período"],
+      "default": "open"
+    },
+    "keywords": {
+      "title": "Keywords / Palavras-chave",
+      "type": "array",
+      "description": "Keep tenders whose object contains ANY of these terms (accents and case ignored), e.g. 'notebook', 'merenda escolar', 'software'. Empty = all.",
+      "editor": "stringList",
+      "prefill": ["notebook", "computador"]
+    },
+    "excludeKeywords": {
+      "title": "Exclude keywords",
+      "type": "array",
+      "description": "Drop tenders whose object contains any of these terms.",
+      "editor": "stringList"
+    },
+    "modalities": {
+      "title": "Modalities / Modalidades",
+      "type": "array",
+      "description": "Procurement modalities. Default: electronic reverse auction (pregão eletrônico) and electronic competition (concorrência eletrônica).",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": ["6", "7", "4", "5", "8", "9", "12", "1", "13", "3", "2", "10", "11"],
+        "enumTitles": ["Pregão eletrônico", "Pregão presencial", "Concorrência eletrônica", "Concorrência presencial", "Dispensa de licitação", "Inexigibilidade", "Credenciamento", "Leilão eletrônico", "Leilão presencial", "Concurso", "Diálogo competitivo", "Manifestação de interesse", "Pré-qualificação"]
+      },
+      "default": ["6", "4"]
+    },
+    "states": {
+      "title": "States (UF)",
+      "type": "array",
+      "description": "Two-letter state codes, e.g. SP, MG. Empty = all Brazil.",
+      "editor": "stringList"
+    },
+    "cityIbgeCodes": {
+      "title": "City IBGE codes",
+      "type": "array",
+      "description": "Optional 7-digit IBGE municipality codes, e.g. 3550308 (São Paulo).",
+      "editor": "stringList"
+    },
+    "agencyCnpjs": {
+      "title": "Agency CNPJs",
+      "type": "array",
+      "description": "Optional CNPJs of the buying agencies (órgãos).",
+      "editor": "stringList"
+    },
+    "minValue": { "title": "Min estimated value (BRL)", "type": "integer", "description": "Keep tenders with estimated value at least this. Tenders without a disclosed value are kept unless 'Drop tenders without value' is on.", "minimum": 0 },
+    "maxValue": { "title": "Max estimated value (BRL)", "type": "integer", "description": "Keep tenders with estimated value up to this.", "minimum": 0 },
+    "dropWithoutValue": { "title": "Drop tenders without value", "type": "boolean", "description": "With a min/max value, also drop tenders whose estimated value is confidential or zero.", "default": false },
+    "dateFrom": { "title": "Published from (published mode)", "type": "string", "description": "YYYY-MM-DD. Default: 7 days ago.", "editor": "datepicker" },
+    "dateTo": { "title": "Published until (published mode)", "type": "string", "description": "YYYY-MM-DD. Default: today.", "editor": "datepicker" },
+    "onlyNew": {
+      "title": "Only new tenders since last run",
+      "type": "boolean",
+      "description": "Remember tenders already delivered (in a key-value store of your account) and output only new ones. Use with a daily schedule for alerts.",
+      "default": false
+    },
+    "maxItems": { "title": "Max results", "type": "integer", "description": "Maximum tenders to return.", "default": 1000, "minimum": 1 }
+  }
+}

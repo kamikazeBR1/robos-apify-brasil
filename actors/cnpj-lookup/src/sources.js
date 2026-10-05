@@ -7,6 +7,16 @@ export const SOURCES = [
 const UA = 'Mozilla/5.0 (compatible; brazil-cnpj-lookup/0.1; +https://apify.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Limite de cortesia com as APIs gratuitas: no máximo ~3 consultas por segundo no total.
+const MIN_INTERVAL_MS = 350;
+let nextSlot = 0;
+async function throttle() {
+    const now = Date.now();
+    const wait = Math.max(0, nextSlot - now);
+    nextSlot = Math.max(now, nextSlot) + MIN_INTERVAL_MS;
+    if (wait) await sleep(wait);
+}
+
 /**
  * Consulta o CNPJ nas fontes. Retorna { data, source } ou { notFound: true } ou lança erro.
  * 404 em todas as fontes = não encontrado. 429/5xx = tenta de novo com espera.
@@ -17,6 +27,7 @@ export async function fetchCnpj(cnpj, { fetchImpl = fetch, retries = 3, log = co
     for (const src of SOURCES) {
         for (let attempt = 0; attempt <= retries; attempt++) {
             try {
+                await throttle();
                 const res = await fetchImpl(src.url(cnpj), {
                     headers: { 'user-agent': UA, accept: 'application/json' },
                     signal: AbortSignal.timeout(30000),

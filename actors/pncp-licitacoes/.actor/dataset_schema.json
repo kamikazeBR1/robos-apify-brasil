@@ -1,0 +1,11 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": { "fields": ["object", "modality", "agency", "city", "state", "estimatedValue", "proposalDeadline", "url"] },
+      "display": { "component": "table", "properties": { "url": { "format": "link" }, "estimatedValue": { "format": "number" } } }
+    }
+  }
+}
