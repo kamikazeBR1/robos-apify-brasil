@@ -1,0 +1,13 @@
+{
+  "actorSpecification": 1,
+  "name": "brazil-cnpj-lookup",
+  "title": "Brazil CNPJ Lookup & Monitor (Receita Federal company data)",
+  "description": "Look up Brazilian companies by CNPJ in bulk: legal name, status, CNAE activities, address, phone, e-mail, Simples/MEI, share capital and partners (QSA). Validates CNPJs for free, uses multiple open-data sources and can flag what changed since your last run.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "categories": ["LEAD_GENERATION", "BUSINESS"],
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": { "dataset": "./dataset_schema.json" }
+}

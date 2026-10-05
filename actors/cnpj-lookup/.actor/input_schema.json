@@ -1,0 +1,41 @@
+{
+  "title": "Brazil CNPJ Lookup",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "cnpjs": {
+      "title": "CNPJs",
+      "type": "array",
+      "description": "List of CNPJs (14 digits, with or without punctuation). Invalid CNPJs are reported but never charged. / Lista de CNPJs, com ou sem pontuação.",
+      "editor": "stringList",
+      "prefill": ["00.000.000/0001-91", "33.000.167/0001-01"]
+    },
+    "includePartners": {
+      "title": "Include partners (QSA)",
+      "type": "boolean",
+      "description": "Include the list of partners/shareholders published by Receita Federal. / Incluir quadro de sócios.",
+      "default": true
+    },
+    "monitorChanges": {
+      "title": "Monitor changes between runs",
+      "type": "boolean",
+      "description": "Remember each company in a key-value store of your account and add a 'changes' field listing what changed since the previous run (status, address, partners, activities...). Ideal for scheduled runs. / Compara com a execução anterior.",
+      "default": false
+    },
+    "onlyChanged": {
+      "title": "Output only changed companies",
+      "type": "boolean",
+      "description": "With monitoring on, only companies that changed (or are new) are written and charged.",
+      "default": false
+    },
+    "maxConcurrency": {
+      "title": "Max concurrency",
+      "type": "integer",
+      "description": "Parallel lookups. Public sources rate-limit, so keep it low.",
+      "default": 4,
+      "minimum": 1,
+      "maximum": 10
+    }
+  },
+  "required": ["cnpjs"]
+}

@@ -1,0 +1,17 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": { "fields": ["cnpjFormatted", "legalName", "tradeName", "status", "openingDate", "mainActivity", "city", "state", "phones", "email", "lookupStatus"] },
+      "display": {
+        "component": "table",
+        "properties": {
+          "mainActivity": { "format": "object" },
+          "phones": { "format": "array" }
+        }
+      }
+    }
+  }
+}
