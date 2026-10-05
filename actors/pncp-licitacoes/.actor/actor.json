@@ -5,9 +5,15 @@
   "description": "Find Brazilian government tenders (licitações) from PNCP, the official national procurement portal: open calls receiving proposals or published in a date range. Filter by keyword, modality, state, city, agency and value, and get only new tenders on scheduled runs.",
   "version": "0.1",
   "buildTag": "latest",
-  "categories": ["LEAD_GENERATION", "BUSINESS"],
+  "categories": [
+    "LEAD_GENERATION",
+    "BUSINESS"
+  ],
   "input": "./input_schema.json",
   "dockerfile": "../Dockerfile",
   "readme": "../README.md",
-  "storages": { "dataset": "./dataset_schema.json" }
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "output": "./output_schema.json"
 }
