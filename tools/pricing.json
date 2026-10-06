@@ -6,6 +6,6 @@
     "job-result": { "eventTitle": "Job returned", "eventDescription": "One job opening written to the dataset.", "eventPriceUsd": 0.002 }
   },
   "brazil-public-tenders-pncp": {
-    "tender-result": { "eventTitle": "Tender returned", "eventDescription": "One public tender (licitação) that matched your filters, written to the dataset.", "eventPriceUsd": 0.01 }
+    "tender-result": { "eventTitle": "Tender returned", "eventDescription": "One public tender (licitação) that matched your filters, written to the dataset.", "eventPriceUsd": 0.002 }
   }
 }
