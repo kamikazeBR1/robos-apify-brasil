@@ -5,7 +5,16 @@ import { buildQueries, pageUrl, normalize, matches } from './lib.js';
 const EVENT = 'tender-result';
 await Actor.init();
 const input = (await Actor.getInput()) ?? {};
+let stop = false;
 const maxItems = Number(input.maxItems ?? 1000);
+// Orçamento de tempo: termina com sucesso antes do limite (o teste diário da Apify exige < 5 min).
+const deadline = Date.now() + Number(input.maxRunSeconds ?? 240) * 1000;
+const outOfTime = () => {
+    if (Date.now() < deadline) return false;
+    if (!stop) log.warning('Time budget reached (maxRunSeconds), finishing with the results found so far.');
+    stop = true;
+    return true;
+}
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const store = input.onlyNew ? await Actor.openKeyValueStore('brazil-pncp-monitor') : null;
 const SEEN_KEY = `seen-${input.mode === 'published' ? 'published' : 'open'}`;
@@ -24,7 +33,7 @@ async function getJson(url) {
     throw new Error(`Failed after retries: ${url}`);
 }
 
-let pushed = 0, scanned = 0, stop = false;
+let pushed = 0, scanned = 0;
 const CONCURRENCY = 4;
 
 async function handleRows(rows) {
@@ -46,7 +55,7 @@ async function handleRows(rows) {
 const queries = buildQueries(input);
 log.info(`${queries.length} PNCP queries to run.`);
 for (const q of queries) {
-    if (stop) break;
+    if (stop || outOfTime()) break;
     if (!(await checkRobots(q))) { log.warning(`robots.txt disallows ${q}`); continue; }
     let first;
     try { first = await getJson(pageUrl(q, 1)); } catch (e) { log.warning(`${e.message} (${q})`); continue; }
@@ -54,7 +63,7 @@ for (const q of queries) {
     log.info(`${first?.totalRegistros ?? 0} tenders (${totalPages} pages) for ${new URL(q).search}`);
     await handleRows(first?.data ?? []);
     // Demais páginas em paralelo, processadas em ordem.
-    for (let p = 2; p <= totalPages && !stop; p += CONCURRENCY) {
+    for (let p = 2; p <= totalPages && !stop && !outOfTime(); p += CONCURRENCY) {
         const pages = [];
         for (let i = p; i < p + CONCURRENCY && i <= totalPages; i++) pages.push(i);
         const bodies = await Promise.all(pages.map((n) => getJson(pageUrl(q, n)).catch((e) => { log.warning(`${e.message} (p${n})`); return null; })));

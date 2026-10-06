@@ -50,7 +50,8 @@
 ```
 
 ## Tips
-- Narrow by **state** and **modality**: the PNCP API is slow, and every extra state × modality is another full listing to scan.
+- Narrow by **state** and **modality**: the PNCP API is slow (about 5 s per page), and every extra state × modality is another full listing to scan.
+- Runs stop after `maxRunSeconds` (default 240) and keep what was found. Raise it for full-Brazil scans.
 - Tenders with a confidential estimate have `estimatedValue: null`.
 
 ## Pricing
